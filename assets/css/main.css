@@ -1,0 +1,21 @@
+@import url('https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700,700i,900,900i');
+@import url('https://fonts.googleapis.com/css?family=Economica:400,700&subset=latin-ext');
+
+
+/*header*/
+		.nav-collapse{
+			height: 80px;
+			margin-bottom: 5%;
+		}
+		.nav-item{
+			margin-top:1%;
+		}
+/*rodape*/
+
+
+	footer{
+		margin-top: 100px !important;
+		background-color: #f3f3f3;
+		padding: 40px;
+	}
+	
