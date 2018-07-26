@@ -16,10 +16,10 @@
 
  </form>
 
- <div class="alert alert-success alert-save" style="display: none;">Produto atualizado com sucesso.</div>
+ <div class="alert alert-success alert-save" style="display: none;">Cliente atualizado com sucesso.</div>
 
 
- <div class="alert alert-danger alert-delete" style="display: none;">Produto excluído  com sucesso.</div>
+ <div class="alert alert-danger alert-delete" style="display: none;">Cliente excluído  com sucesso.</div>
 
 
  <table class="table">

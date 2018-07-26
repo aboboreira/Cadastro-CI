@@ -416,8 +416,8 @@ class CI_Form_validation {
 	public function run($group = '')
 	{
 		$validation_array = empty($this->validation_data)
-			? $_POST
-			: $this->validation_data;
+		? $_POST
+		: $this->validation_data;
 
 		// Does the _field_data array containing the validation rules exist?
 		// If not, we look to see if they were assigned via a config file
@@ -662,8 +662,8 @@ class CI_Form_validation {
 				// somebody messing with the form on the client side, so we'll just consider
 				// it an empty field
 				$postdata = is_array($this->_field_data[$row['field']]['postdata'])
-					? NULL
-					: $this->_field_data[$row['field']]['postdata'];
+				? NULL
+				: $this->_field_data[$row['field']]['postdata'];
 			}
 
 			// Is the rule a callback?
@@ -726,8 +726,8 @@ class CI_Form_validation {
 				else
 				{
 					$result = is_array($rule)
-						? $rule[0]->{$rule[1]}($postdata)
-						: $rule($postdata);
+					? $rule[0]->{$rule[1]}($postdata)
+					: $rule($postdata);
 
 					// Is $callable set to a rule name?
 					if ($callable !== FALSE)
@@ -1055,8 +1055,8 @@ class CI_Form_validation {
 	public function required($str)
 	{
 		return is_array($str)
-			? (empty($str) === FALSE)
-			: (trim($str) !== '');
+		? (empty($str) === FALSE)
+		: (trim($str) !== '');
 	}
 
 	// --------------------------------------------------------------------
@@ -1085,8 +1085,8 @@ class CI_Form_validation {
 	public function matches($str, $field)
 	{
 		return isset($this->_field_data[$field], $this->_field_data[$field]['postdata'])
-			? ($str === $this->_field_data[$field]['postdata'])
-			: FALSE;
+		? ($str === $this->_field_data[$field]['postdata'])
+		: FALSE;
 	}
 
 	// --------------------------------------------------------------------
@@ -1119,8 +1119,8 @@ class CI_Form_validation {
 	{
 		sscanf($field, '%[^.].%[^.]', $table, $field);
 		return isset($this->CI->db)
-			? ($this->CI->db->limit(1)->get_where($table, array($field => $str))->num_rows() === 0)
-			: FALSE;
+		? ($this->CI->db->limit(1)->get_where($table, array($field => $str))->num_rows() === 0)
+		: FALSE;
 	}
 
 	// --------------------------------------------------------------------
@@ -1232,8 +1232,8 @@ class CI_Form_validation {
 		if (function_exists('idn_to_ascii') && preg_match('#\A([^@]+)@(.+)\z#', $str, $matches))
 		{
 			$domain = defined('INTL_IDNA_VARIANT_UTS46')
-				? idn_to_ascii($matches[2], 0, INTL_IDNA_VARIANT_UTS46)
-				: idn_to_ascii($matches[2]);
+			? idn_to_ascii($matches[2], 0, INTL_IDNA_VARIANT_UTS46)
+			: idn_to_ascii($matches[2]);
 
 			if ($domain !== FALSE)
 			{
@@ -1587,5 +1587,37 @@ class CI_Form_validation {
 		$this->error_string = '';
 		return $this;
 	}
+
+	/**
+ * Verifica se o CPF informado é valido
+ * @param     string
+ * @return     bool
+ */
+	 function valid_cpf($cpf)
+    {
+        $CI =& get_instance();
+        
+        $CI->form_validation->set_message('valid_cpf', 'O %s informado não é válido.');
+        $cpf = preg_replace('/[^0-9]/','',$cpf);
+        if(strlen($cpf) != 11 || preg_match('/^([0-9])\1+$/', $cpf))
+        {
+            return false;
+        }
+        // 9 primeiros digitos do cpf
+        $digit = substr($cpf, 0, 9);
+        // calculo dos 2 digitos verificadores
+        for($j=10; $j <= 11; $j++)
+        {
+            $sum = 0;
+            for($i=0; $i< $j-1; $i++)
+            {
+                $sum += ($j-$i) * ((int) $digit[$i]);
+            }
+            $summod11 = $sum % 11;
+            $digit[$j-1] = $summod11 < 2 ? 0 : 11 - $summod11;
+        }
+        
+        return $digit[9] == ((int)$cpf[9]) && $digit[10] == ((int)$cpf[10]);
+    }
 
 }

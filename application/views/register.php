@@ -6,6 +6,7 @@
   
 
 
+
 <form class="col-md-6 d-inline-block" method="post" action="<?php echo base_url('Register/saveCustumer'); ?>">
   <div class="form-group col-md-12">
     <label for="nome">Nome</label>
@@ -32,7 +33,7 @@
     <input type="tel" class="form-control" id="telefone" name="telefone">
   </div>
   
-  <input type="hidden" class="form-control" id="id" name="id">
+<!--   <input type="hidden" class="form-control" id="id" name="id"> -->
   <button type="submit" class="btn btn-primary">Prosseguir</button>
 </form>
  

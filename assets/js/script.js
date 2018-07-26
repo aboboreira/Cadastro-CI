@@ -22,6 +22,8 @@ $(function() {
 	})
 
 
+	
+
 	$('.btn-deletar').click(function(btn){
 		btn.preventDefault();
 
